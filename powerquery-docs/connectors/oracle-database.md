@@ -236,34 +236,32 @@ Once you select the advanced options you require, select **OK** in Power Query D
 
 ## Use the built-in Oracle driver (Preview)
 
-Since the April 2025 version of Power BI Desktop and May 2025 version of on-premises data gateway, the Oracle connector includes a built-in Oracle managed ODP.NET driver for connectivity. This feature removes the necessity for users to install and manage the driver. You can enable this feature by using the following instructions.
+Since the April 2025 version of Power BI Desktop and May 2025 version of on-premises data gateway, the Oracle connector includes a built-in Oracle managed ODP.NET driver for connectivity. This feature removes the necessity for users to install and manage the driver. You can enable this feature by using the following instructions.  Currently this preview feature only works for Semantics Model in import mode.
 
-To use this built-in driver in Power BI Desktop, navigate to **Options and settings** (under the **File** tab) > **Options** > **Preview features**, and then select the checkbox to enable the **Enable using bundled Oracle Managed ODP Provider** option.
+To use this built-in driver in Power BI Desktop, navigate to **Options and settings** (under the **File** tab) > **Options** > **Preview features**, and then select the checkbox to enable the **Enable using bundled Oracle Managed ODP Provider for Import Mode** option.
 
 :::image type="content" source="./media/oracle-database/option-for-bundled-driver.png" alt-text="Screenshot of option to enable using bundled Oracle Managed ODP Provider in Power BI Desktop.":::
 
-To use this built-in driver in the on-premises data gateway, change the gateway configurations to update the `MashupFlight_EnableOracleBundledOdacProvider` setting using the following steps:
+To use this built-in driver in the on-premises data gateway, change the gateway configurations to update the `MashupFlight_EnableOracleBundledOdacProviderV2` setting using the following steps:
 
 1. On the local machine where the on-premises data gateway is installed, navigate to **C:\Program Files\On-premises data gateway**.
 2. Make a backup of the configuration file named **Microsoft.PowerBI.DataMovement.Pipeline.GatewayCore.dll.config**.
-3. Open the original **Microsoft.PowerBI.DataMovement.Pipeline.GatewayCore.dll.config** configuration file and locate the `MashupFlight_EnableOracleBundledOdacProvider` entry.
+3. Open the original **Microsoft.PowerBI.DataMovement.Pipeline.GatewayCore.dll.config** configuration file and locate the `MashupFlight_EnableOracleBundledOdacProviderV2` entry.
 4. Update the `MashupFlight_EnableOracleBundledOdacProvider` value as `True`.
 5. Restart your gateway.
 
 ```xml
 <Microsoft.PowerBI.DataMovement.Pipeline.GatewayCore.GatewayCoreSettings>
    ...
-   <setting name="MashupFlight_EnableOracleBundledOdacProvider" serializeAs="String">
+   <setting name="MashupFlight_EnableOracleBundledOdacProviderV2" serializeAs="String">
       <value>True</value>
    </setting>
    ...
 </Microsoft.PowerBI.DataMovement.Pipeline.GatewayCore.GatewayCoreSettings>    
 ```
 
-The remaining configurations to connect to an Oracle database from Power Query Desktop are the same as described in the previous sections.
-
 > [!NOTE]
-> Semantic model DirectQuery can't use the built-in Oracle managed ODP.NET driver for connectivity. `MashupFlight_EnableOracleBundledOdacProvider` isn't applicable on semantic model DirectQuery.
+> Semantic model DirectQuery can't use the built-in Oracle managed ODP.NET driver for connectivity. `MashupFlight_EnableOracleBundledOdacProviderV2` isn't applicable on semantic model DirectQuery.
 
 
 ## Known issues and limitations
